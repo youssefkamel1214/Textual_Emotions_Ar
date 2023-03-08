@@ -10,6 +10,8 @@ import android.widget.Toast;
 import com.example.texttoemotion.controller.Emotion_server;
 import com.example.texttoemotion.databinding.ActivityMainBinding;
 import com.example.texttoemotion.models.EmotionData;
+import com.example.texttoemotion.models.EmotionLabels;
+import com.example.texttoemotion.models.EmotionResponse;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -42,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     private void getinputanddofilter() {
         String s= binding.input.getText().toString().trim();
         if(s.isEmpty()){
-            binding.result.setText("عارفك ياللي بتستهبل");
             Toast.makeText(this,"لو سمحت دخل داتا اديني مشتمتش يا عم محمود", Toast.LENGTH_LONG).show();
             return;
         }
@@ -62,18 +63,18 @@ public class MainActivity extends AppCompatActivity {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"),
                 new Gson().toJson(emotionData));
 
-        Call<EmotionData> call = service.postEmotion(requestBody);
-        call.enqueue(new Callback<EmotionData>() {
+        Call<EmotionResponse> call = service.postEmotion(requestBody);
+        call.enqueue(new Callback<EmotionResponse>() {
             @Override
-            public void onResponse(Call<EmotionData> call, Response<EmotionData> response) {
+            public void onResponse(Call<EmotionResponse> call, Response<EmotionResponse> response) {
                 // Handle success response here
                 binding.button.setVisibility(View.VISIBLE);
-                EmotionData emotions=response.body();
-                whendatacome(emotions);
+                EmotionResponse result=response.body();
+                whendatacome(result.getData().get(0));
             }
 
             @Override
-            public void onFailure(Call<EmotionData> call, Throwable t) {
+            public void onFailure(Call<EmotionResponse> call, Throwable t) {
                 // Handle failure response here
                 binding.result.setText("here we go again error:"+t.getMessage());
                 binding.button.setVisibility(View.VISIBLE);
@@ -83,7 +84,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void whendatacome(EmotionData emotions) {
-        binding.result.setText(emotions.getData().get(0));
+    private void whendatacome(EmotionLabels result) {
+        String s="";
+        for (EmotionLabels.Emotions sa:result.getEmotions()) {
+            s=s+sa.getLabel()+" "+sa.getConfidence().toString()+"\n";
+        }
+        binding.result.setText(s);
     }
 }
