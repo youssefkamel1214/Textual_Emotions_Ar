@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Text to Emotion</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
@@ -35,4 +36,39 @@
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="full_complaint">Full complaint</string>
+    <string name="summarized_text">Summarized complaint</string>
+    <string name="complaint_subject">Complaint Subject</string>
+    <string name="subject">Subject</string>
+    <string name="governorate">Governorate</string>
+    <string name="cairo">cairo</string>
+    <string name="gov_organization">Gov Organization</string>
+    <string name="ex_ministry_of_health">ex: ministry of health</string>
+    <string name="city">City</string>
+    <string name="nasr_city">Nasr City</string>
+    <string name="date">Date</string>
+    <string name="day_month_year">day/month/year</string>
+    <string name="address">Address</string>
+    <string name="optional">(optional)</string>
+    <string name="your_complain">your complain</string>
+    <string name="max_words_is_600">Max words is 600</string>
+    <string name="comments">Comments</string>
+    <string name="attachments">Attachments</string>
+    <string name="add_attachment">Add attachment</string>
+    <string name="submit">submit</string>
+    <string name="sumbit_feedback">Sumbit feedback</string>
+    <string name="code">code</string>
+    <string name="code_was_sent">code was sent to %s</string>
+    <string name="not_yet_registered_signup_now">Not yet registered? SignUp Now</string>
+    <string name="login">Login</string>
+    <string name="phone_number">Phone number</string>
+    <string name="name">Name</string>
+    <string name="signup">Signup</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="already_registered_login_now">Already registered? Login Now</string>
+    <string name="feedback_analysis">Feedback Analysis</string>
+    <string name="finished_complaints">Finished Complaints</string>
+    <string name="complaints_summraization">Complaints Summraization</string>
+    <string name="complaint_analysis">Complaint Analysis</string>
+    <string name="logo">LOGO</string>
 </resources>

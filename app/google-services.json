@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "744704572480",
+    "project_id": "text-to-emotions",
+    "storage_bucket": "text-to-emotions.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:744704572480:android:173852d1f19f7114aeb3a5",
+        "android_client_info": {
+          "package_name": "com.example.texttoemotion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "744704572480-jtfgscjl1sqk6e82jo8qp8kshk8q6siv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.texttoemotion",
+            "certificate_hash": "d65c2714222436b25391cd8d0924c164e899ced6"
+          }
+        },
+        {
+          "client_id": "744704572480-lp6erms2s0dei3kik0vcb3s2i46c7eu0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD88enkAnoi74rH7nI4GJynB8xkLYZlt78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "744704572480-lp6erms2s0dei3kik0vcb3s2i46c7eu0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
