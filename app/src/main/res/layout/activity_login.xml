@@ -67,6 +67,17 @@ tools:context=".authintication.LoginActivity">
                 android:layout_marginTop="30dp"
                 android:background="@drawable/button_background"
                 app:cornerRadius = "100dp"/>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/bluefateh"
+                android:layout_gravity="center"
+                android:background="@null"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatButton" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
