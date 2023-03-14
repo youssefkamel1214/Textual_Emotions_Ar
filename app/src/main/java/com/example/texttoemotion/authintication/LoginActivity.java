@@ -8,15 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.texttoemotion.Admin.AdminActivity;
 import com.example.texttoemotion.MainActivity;
-import com.example.texttoemotion.OtpActivity;
 import com.example.texttoemotion.R;
 import com.example.texttoemotion.databinding.ActivityLoginBinding;
 import com.example.texttoemotion.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding;
@@ -58,7 +56,12 @@ public class LoginActivity extends AppCompatActivity {
             else {
                 User user= queryDocumentSnapshots.getDocuments().get(0).toObject(User.class);
                 if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-                    Intent intent=new Intent(this,MainActivity.class);
+
+                    Intent intent;
+                    if(user.getType().equals("admin"))
+                         intent = new Intent(this, AdminActivity.class);
+                    else
+                          intent = new Intent(this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }

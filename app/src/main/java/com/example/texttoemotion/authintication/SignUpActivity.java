@@ -12,16 +12,12 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.texttoemotion.Constants;
-import com.example.texttoemotion.MainActivity;
-import com.example.texttoemotion.OtpActivity;
 import com.example.texttoemotion.R;
 import com.example.texttoemotion.databinding.ActivitySignUpBinding;
 import com.example.texttoemotion.models.User;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Objects;
 
 public class SignUpActivity extends AppCompatActivity {
     ActivitySignUpBinding binding;

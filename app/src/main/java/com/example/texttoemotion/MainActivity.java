@@ -12,6 +12,7 @@ import com.example.texttoemotion.Profile.ProfileFragment;
 import com.example.texttoemotion.Settings.SettingsFragment;
 import com.example.texttoemotion.controller.Emotion_server;
 import com.example.texttoemotion.databinding.ActivityMainBinding;
+import com.example.texttoemotion.uplaodcomplaint.AddComplaintFragment;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -47,7 +48,10 @@ public class MainActivity extends AppCompatActivity{
                 return true;
         });
     }
-
+   public void change_to_home(){
+       getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag,new HomeFragment()).commit();
+       binding.bottomnav.setSelectedItemId(R.id.home);
+   }
 //        Retrofit retrofit = new Retrofit.Builder()
 //                .baseUrl("https://youssef1214-text-to-emotion.hf.space/")
 //                .addConverterFactory(GsonConverterFactory.create())

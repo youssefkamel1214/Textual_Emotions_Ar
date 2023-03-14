@@ -6,26 +6,36 @@ import java.util.Random;
 
 public class Complaint {
     String title;
-    String username;
-    String phonenumber;
-    String ssn;
+    String city;
+    String governorate;
+    String address;
+    String organization;
+    String complaintbody;
+    String comments;
+    String userid;
     long date;
     String summary;
+    String Fileurl;
 
-    public Complaint(String title, String username, String phonenumber, String ssn, long date, String summary) {
+    public Complaint() {
+    }
+
+    public Complaint(String title, String city, String governorate, String address, String organization, String complaintbody, String comments, String userid, long date, String fileurl) {
         this.title = title;
-        this.username = username;
-        this.phonenumber = phonenumber;
-        this.ssn = ssn;
+        this.city = city;
+        this.governorate = governorate;
+        this.address = address;
+        this.organization = organization;
+        this.complaintbody = complaintbody;
+        this.comments = comments;
+        this.userid = userid;
         this.date = date;
-        this.summary = summary;
+        Fileurl = fileurl;
     }
 
     public Complaint(String title, String summary) {
         this.title = title;
         this.summary = summary;
-        Random random = new Random();
-        this.date=System.currentTimeMillis() - random.nextInt(1000) * 24 * 60 * 60 * 1000;
     }
 
     public String getTitle() {
@@ -36,28 +46,60 @@ public class Complaint {
         this.title = title;
     }
 
-    public String getUsername() {
-        return username;
+    public String getCity() {
+        return city;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getGovernorate() {
+        return governorate;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setGovernorate(String governorate) {
+        this.governorate = governorate;
     }
 
-    public String getSsn() {
-        return ssn;
+    public String getAddress() {
+        return address;
     }
 
-    public void setSsn(String ssn) {
-        this.ssn = ssn;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(String organization) {
+        this.organization = organization;
+    }
+
+    public String getComplaintbody() {
+        return complaintbody;
+    }
+
+    public void setComplaintbody(String complaintbody) {
+        this.complaintbody = complaintbody;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public long getDate() {
@@ -74,5 +116,13 @@ public class Complaint {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    public String getFileurl() {
+        return Fileurl;
+    }
+
+    public void setFileurl(String fileurl) {
+        Fileurl = fileurl;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.texttoemotion;
+package com.example.texttoemotion.authintication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.texttoemotion.Admin.AdminActivity;
+import com.example.texttoemotion.MainActivity;
+import com.example.texttoemotion.R;
 import com.example.texttoemotion.databinding.ActivityOtpBinding;
 import com.example.texttoemotion.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,7 +43,7 @@ public class OtpActivity extends AppCompatActivity {
         binding=ActivityOtpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         user=getIntent().getParcelableExtra("user");
-        binding.SignupText.setText("code was sent to "+user.getPhone());
+        binding.SignupText.setText(getResources().getString(R.string.code_was_sent,user.getPhone()));
         binding.otpbutton.setOnClickListener(v -> {
             String code=binding.phonenumber.getText().toString();
             PhoneAuthCredential credential;
@@ -149,13 +152,24 @@ public class OtpActivity extends AppCompatActivity {
             });
         }
         else{
-            startmainhome();
+            if(user.getType().equals("admin"))
+                  startadminpage();
+            else
+                startmainhome();
         }
+    }
+
+    private void startadminpage() {
+        Intent intent = new Intent(this, AdminActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("user",user);
+        startActivity(intent);
     }
 
     private void startmainhome() {
             Intent intent = new Intent(this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra("user",user);
             startActivity(intent);
     }
 }

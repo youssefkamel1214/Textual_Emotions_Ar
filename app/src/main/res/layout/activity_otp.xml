@@ -14,7 +14,7 @@
         android:orientation="vertical"
         android:gravity="center"
 
-        tools:context=".OtpActivity">
+        tools:context=".authintication.OtpActivity">
        <androidx.cardview.widget.CardView
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                <TextView
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:text="code was sent to XXXXXXXXX"
+                   android:text="@string/code_was_sent"
                    android:id="@+id/SignupText"
                    android:textSize="30sp"
                    android:textAlignment="center"
@@ -44,7 +44,7 @@
                    android:id="@+id/phonenumber"
                    android:background="@drawable/custom_edittext"
                    contentPaddingLeft="16dp"
-                   android:hint="code"
+                   android:hint="@string/code"
                    android:padding="8dp"
                    android:inputType="number"
                    android:textColor="@color/black"
