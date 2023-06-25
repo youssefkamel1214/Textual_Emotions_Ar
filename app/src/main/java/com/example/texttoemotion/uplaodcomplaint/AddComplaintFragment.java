@@ -14,6 +14,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
+import android.text.InputType;
+import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +34,9 @@ import com.example.texttoemotion.models.Complaint;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -66,6 +73,7 @@ public class AddComplaintFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding=FragmentAddComplaintBinding.inflate(getLayoutInflater(),container,false);
         // Inflate the layout for this fragment
+
         date= Constants.return_hour_to_zero(Calendar.getInstance());
         binding.attachment.setOnClickListener(v -> {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
@@ -88,31 +96,26 @@ public class AddComplaintFragment extends Fragment {
 
     private void checkvaluesandsumbit() {
         String title=binding.title.getText().toString().trim();
-        String city=binding.city.getText().toString().trim();
         String address=binding.address.getText().toString().trim();
         String governorate=binding.governorate.getText().toString().trim();
-        String comments=binding.comments.getText().toString().trim();
         String organization=binding.Organization.getText().toString().trim();
         String complaintBody=binding.complaintBody.getText().toString().trim();
         String datetmp=binding.date.getText().toString().trim();
-        if(title.isEmpty()||city.isEmpty()||address.isEmpty()||governorate.isEmpty()||organization.isEmpty()||complaintBody.isEmpty()||datetmp.isEmpty()){
+        if(title.isEmpty()||address.isEmpty()||governorate.isEmpty()||organization.isEmpty()||complaintBody.isEmpty()||datetmp.isEmpty()){
             Toast.makeText(requireContext(),"please fill all required feilds",Toast.LENGTH_LONG).show();
             return;
         }
-        Complaint complaint=new Complaint(title,city,governorate,address,organization,complaintBody,comments,
+        Complaint complaint=new Complaint(title,governorate,address,organization,complaintBody,
                 FirebaseAuth.getInstance().getCurrentUser().getUid(),date.getTimeInMillis(),filePath);
-        UploadComplaint uploadComplaint=new UploadComplaint(requireContext(), new Callback<Exception>() {
-            @Override
-            public void call(Exception obj) {
-                if(obj==null) {
-                    MainActivity mainActivity = (MainActivity) requireActivity();
-                    mainActivity.change_to_home();
-                }
-                else{
-                    Toast.makeText(requireContext(),obj.getMessage(),Toast.LENGTH_LONG).show();
-                }
+        UploadComplaint uploadComplaint=new UploadComplaint(requireContext(), obj -> {
+            if(obj==null) {
+                MainActivity mainActivity = (MainActivity) requireActivity();
+                mainActivity.change_to_home();
             }
-        });
+            else{
+                Toast.makeText(requireContext(),obj.getMessage(),Toast.LENGTH_LONG).show();
+            }
+        },filePath!=null &&!filePath.isEmpty() );
         uploadComplaint.execute(complaint);
     }
 
@@ -127,10 +130,10 @@ public class AddComplaintFragment extends Fragment {
             case PICKFILE_RESULT_CODE:
                 if (resultCode == -1) {
                     Uri fileUri = data.getData();
-                    filePath = fileUri.getPath();
-                    File file = new File(fileUri.getPath());
-                    String fileExt= MimeTypeMap.getFileExtensionFromUrl(file.toString());
-                    binding.attachmentpath.setText(file.getPath()+"ext="+fileExt);
+                    filePath=fileUri.toString();
+
+                    Log.d("from",fileUri.getPath());
+                    binding.attachmentpath.setText(filePath);
                     binding.attachmentpath.setVisibility(View.VISIBLE);
                 }
 

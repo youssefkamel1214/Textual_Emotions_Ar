@@ -71,4 +71,6 @@
     <string name="complaints_summraization">Complaints Summraization</string>
     <string name="complaint_analysis">Complaint Analysis</string>
     <string name="logo">LOGO</string>
+    <string name="allowed_charaters_in_complaint">*-/+|"'٠١٢٣٤٥٦٧٨٩ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىة ؟،.;:« »)(!@#$%^</string>
+    <string name="emailhint">example@fcis.com</string>
 </resources>

@@ -5,13 +5,12 @@ import android.icu.util.Calendar;
 import java.util.Random;
 
 public class Complaint {
+    String id;
     String title;
-    String city;
     String governorate;
     String address;
     String organization;
     String complaintbody;
-    String comments;
     String userid;
     long date;
     String summary;
@@ -20,14 +19,12 @@ public class Complaint {
     public Complaint() {
     }
 
-    public Complaint(String title, String city, String governorate, String address, String organization, String complaintbody, String comments, String userid, long date, String fileurl) {
+    public Complaint(String title, String governorate, String address, String organization, String complaintbody, String userid, long date, String fileurl) {
         this.title = title;
-        this.city = city;
         this.governorate = governorate;
         this.address = address;
         this.organization = organization;
         this.complaintbody = complaintbody;
-        this.comments = comments;
         this.userid = userid;
         this.date = date;
         Fileurl = fileurl;
@@ -38,6 +35,14 @@ public class Complaint {
         this.summary = summary;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -46,13 +51,6 @@ public class Complaint {
         this.title = title;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     public String getGovernorate() {
         return governorate;
@@ -86,13 +84,6 @@ public class Complaint {
         this.complaintbody = complaintbody;
     }
 
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
 
     public String getUserid() {
         return userid;

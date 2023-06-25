@@ -43,16 +43,17 @@ public class OtpActivity extends AppCompatActivity {
         binding=ActivityOtpBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         user=getIntent().getParcelableExtra("user");
-        binding.SignupText.setText(getResources().getString(R.string.code_was_sent,user.getPhone()));
+        String tmp=String.format(getResources().getString(R.string.code_was_sent), user.getEmail());
+        binding.SignupText.setText(tmp);
         binding.otpbutton.setOnClickListener(v -> {
-            String code=binding.phonenumber.getText().toString();
+            String code=binding.email.getText().toString();
             PhoneAuthCredential credential;
             if(code.length()==6) {
                 binding.progressBar.setVisibility(View.VISIBLE);
                 binding.otpbutton.setVisibility(View.GONE);
                 credential = PhoneAuthProvider.getCredential(mVerificationId, code);
                 if(credential!=null) {
-                    signInWithPhoneAuthCredential(credential);
+                    SendOTPVerificationCode(credential);
                 }
                 else {
                     binding.progressBar.setVisibility(View.GONE);
@@ -63,83 +64,12 @@ public class OtpActivity extends AppCompatActivity {
         });
         auth = FirebaseAuth.getInstance();
         auth.setLanguageCode("ar");
-        mCallbacks = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-
-            @Override
-            public void onVerificationCompleted(@NonNull PhoneAuthCredential credential) {
-                // This callback will be invoked in two situations:
-                // 1 - Instant verification. In some cases the phone number can be instantly
-                //     verified without needing to send or enter a verification code.
-                // 2 - Auto-retrieval. On some devices Google Play services can automatically
-                //     detect the incoming verification SMS and perform verification without
-                //     user action.
-                Log.d(TAG, "onVerificationCompleted:" + credential);
-
-                signInWithPhoneAuthCredential(credential);
-            }
-
-            @Override
-            public void onVerificationFailed(@NonNull FirebaseException e) {
-                // This callback is invoked in an invalid request for verification is made,
-                // for instance if the the phone number format is not valid.
-                Log.w(TAG, "onVerificationFailed", e);
-
-                if (e instanceof FirebaseAuthInvalidCredentialsException) {
-                    // Invalid request
-                } else if (e instanceof FirebaseTooManyRequestsException) {
-                    // The SMS quota for the project has been exceeded
-                }
-
-                // Show a message and update the UI
-            }
-
-            @Override
-            public void onCodeSent(@NonNull String verificationId,
-                                   @NonNull PhoneAuthProvider.ForceResendingToken token) {
-                // The SMS verification code has been sent to the provided phone number, we
-                // now need to ask the user to enter the code and then construct a credential
-                // by combining the code with a verification ID.
-                Log.d(TAG, "onCodeSent:" + verificationId+" phone:"+user.getPhone());
-
-                // Save verification ID and resending token so we can use them later
-                mVerificationId = verificationId;
-                mResendToken = token;
-            }
-        };
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(auth)
-                        .setPhoneNumber("+2"+user.getPhone())       // Phone number to verify
-                        .setTimeout(120L, TimeUnit.SECONDS) // Timeout and unit
-                        .setActivity(this)                 // Activity (for callback binding)
-                        .setCallbacks(mCallbacks)// OnVerificationStateChangedCallbacks
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        auth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        binding.progressBar.setVisibility(View.VISIBLE);
-                        binding.otpbutton.setVisibility(View.GONE);
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+    private void SendOTPVerificationCode(PhoneAuthCredential credential) {
+//        binding.progressBar.setVisibility(View.VISIBLE);
+//        binding.otpbutton.setVisibility(View.GONE);
 
-                            FirebaseUser userfir = task.getResult().getUser();
-                            user.setId(userfir.getUid());
-                            uploaddata();
-                            // Update UI
-                        } else {
-                            // Sign in failed, display a message and update the UI
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                            }
-                        }
-                    }
-                });
     }
 
     private void uploaddata() {

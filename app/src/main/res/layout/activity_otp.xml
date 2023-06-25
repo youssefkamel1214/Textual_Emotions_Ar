@@ -41,7 +41,7 @@
                <EditText
                    android:layout_width="match_parent"
                    android:layout_height="50dp"
-                   android:id="@+id/phonenumber"
+                   android:id="@+id/email"
                    android:background="@drawable/custom_edittext"
                    contentPaddingLeft="16dp"
                    android:hint="@string/code"

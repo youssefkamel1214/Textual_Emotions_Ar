@@ -60,7 +60,7 @@
     <string name="submit">يُقدِّم</string>
     <string name="sumbit_feedback">ملاحظات سومبيت</string>
     <string name="code">شفرة</string>
-    <string name="code_was_sent">تم إرسال الرمز إلى٪ s</string>
+    <string name="code_was_sent">تم إرسال الرمز إلى %s</string>
     <string name="not_yet_registered_signup_now">غير مسجل بعد؟ أفتح حساب الأن</string>
     <string name="login">تسجيل الدخول</string>
     <string name="phone_number">رقم التليفون</string>
