@@ -68,7 +68,7 @@ public class UploadComplaint extends AsyncTask<Complaint,Long,Object> {
         complaints[0].setId(id);
         if(complaints[0].getFileurl()==null||complaints[0].getFileurl().isEmpty()) {
              try {
-                 uploadcollection(complaints[0]);
+                 return uploadcollection(complaints[0]);
              } catch (Exception e) {
                  Log.e("uploadtask", e.getMessage());
                  return e;

@@ -1,18 +1,28 @@
 package com.example.texttoemotion;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.texttoemotion.Home.HomeFragment;
 import com.example.texttoemotion.Profile.ProfileFragment;
 import com.example.texttoemotion.Settings.SettingsFragment;
+import com.example.texttoemotion.authintication.LoginActivity;
 import com.example.texttoemotion.controller.Emotion_server;
 import com.example.texttoemotion.databinding.ActivityMainBinding;
+import com.example.texttoemotion.databinding.CustomBarDialogBinding;
 import com.example.texttoemotion.uplaodcomplaint.AddComplaintFragment;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -22,6 +32,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         binding= ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         getWindow().setStatusBarColor(ContextCompat.getColor(this,android.R.color.transparent));
@@ -33,8 +44,8 @@ public class MainActivity extends AppCompatActivity{
                             case R.id.home:
                                 F = new HomeFragment();
                                 break;
-                            case R.id.settings:
-                                F = new SettingsFragment();
+                            case R.id.logout:
+                                showLogoutDialog();
                                 break;
                             case R.id.profile:
                                 F = new ProfileFragment();
@@ -44,19 +55,36 @@ public class MainActivity extends AppCompatActivity{
                                 break;
 
                         }
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag,F).commit();
+                 if(F!=null)
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag,F).commit();
                 return true;
         });
     }
-   public void change_to_home(){
+
+    private void showLogoutDialog() {
+        CustomBarDialogBinding barDialogBinding= CustomBarDialogBinding.inflate(getLayoutInflater());
+        Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(barDialogBinding.getRoot());
+        barDialogBinding.yes.setOnClickListener(v -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
+            finish();
+            dialog.dismiss();
+        });
+        barDialogBinding.no.setOnClickListener(v -> {
+            dialog.dismiss();
+            binding.bottomnav.setSelectedItemId(R.id.home);
+            Fragment F=new HomeFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag,F).commit();
+        });
+        dialog.show();
+    }
+
+    public void change_to_home(){
        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container_view_tag,new HomeFragment()).commit();
        binding.bottomnav.setSelectedItemId(R.id.home);
    }
-//        Retrofit retrofit = new Retrofit.Builder()
-//                .baseUrl("https://youssef1214-text-to-emotion.hf.space/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build();
-//        service = retrofit.create(Emotion_server.class);
 
 
 }

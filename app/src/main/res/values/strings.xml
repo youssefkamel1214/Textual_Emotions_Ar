@@ -73,4 +73,5 @@
     <string name="logo">LOGO</string>
     <string name="allowed_charaters_in_complaint">*-/+|"'٠١٢٣٤٥٦٧٨٩ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىة ؟،.;:« »)(!@#$%^</string>
     <string name="emailhint">example@fcis.com</string>
+    <string name="are_you_sure_want_to_logout">Are you sure want to logout ?</string>
 </resources>

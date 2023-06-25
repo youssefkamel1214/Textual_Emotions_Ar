@@ -72,6 +72,7 @@ public class HomeFragment extends Fragment {
         binding.buttonFirst.setOnClickListener(v -> {
             Toast.makeText(getContext(),"index clicked"+Integer.toString(index),Toast.LENGTH_LONG).show();
         });
+
         return binding.getRoot();
 
     }
