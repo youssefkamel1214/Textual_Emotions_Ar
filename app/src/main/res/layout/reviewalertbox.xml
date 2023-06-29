@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+       <ScrollView
+           android:layout_width="match_parent"
+           android:layout_height="@dimen/_350sdp"
+           android:padding="20dp">
+           <androidx.constraintlayout.widget.ConstraintLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               >
+
+               <RatingBar
+                   android:id="@+id/ratingBar"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="16dp"
+                   android:progressTint="@color/yellow"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintHorizontal_bias="0.5"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent" />
+
+               <EditText
+                   android:id="@+id/feedbacktext"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="5dp"
+                   android:minHeight="100dp"
+                   android:layout_marginHorizontal="5dp"
+                   android:background="@drawable/custom_edittext"
+                   android:drawablePadding="8dp"
+                   android:digits="@string/allowed_charaters_in_complaint"
+                   android:hint="@string/write_your_feedback"
+                   android:padding="8dp"
+                   android:textColor="@color/black"
+                   android:textColorHighlight="@color/cardview_dark_background"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintHorizontal_bias="0.5"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+
+               <androidx.appcompat.widget.AppCompatButton
+                   android:id="@+id/submit"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="8dp"
+                   android:background="@drawable/button_background"
+                   android:padding="8dp"
+                   android:text="@string/submit_review"
+                   android:textSize="20sp"
+                   app:layout_constraintEnd_toEndOf="parent"
+                   app:layout_constraintHorizontal_bias="0.5"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toBottomOf="@+id/feedbacktext" />
+           </androidx.constraintlayout.widget.ConstraintLayout>
+
+       </ScrollView>
+</layout>

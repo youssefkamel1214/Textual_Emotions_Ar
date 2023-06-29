@@ -12,14 +12,14 @@ public class Complaint {
     String organization;
     String complaintbody;
     String userid;
-    long date;
+    String date;
     String summary;
     String Fileurl;
 
     public Complaint() {
     }
 
-    public Complaint(String title, String governorate, String address, String organization, String complaintbody, String userid, long date, String fileurl) {
+    public Complaint(String title, String governorate, String address, String organization, String complaintbody, String userid, String date, String fileurl) {
         this.title = title;
         this.governorate = governorate;
         this.address = address;
@@ -93,11 +93,11 @@ public class Complaint {
         this.userid = userid;
     }
 
-    public long getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(long date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -31,6 +31,7 @@ import com.example.texttoemotion.controller.Callback;
 import com.example.texttoemotion.controller.UploadComplaint;
 import com.example.texttoemotion.databinding.FragmentAddComplaintBinding;
 import com.example.texttoemotion.models.Complaint;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.File;
@@ -43,7 +44,7 @@ import java.util.Calendar;
 public class AddComplaintFragment extends Fragment {
     public static final int PICKFILE_RESULT_CODE = 1;
     private static final int REQUEST_CODE_READ_EXTERNAL_STORAGE = 1;
-    private SimpleDateFormat DMY=new SimpleDateFormat("dd-MM-YYYY");
+    private SimpleDateFormat DMY=new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
     Calendar date;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,9 +89,7 @@ public class AddComplaintFragment extends Fragment {
         binding.submit.setOnClickListener(v -> {
             checkvaluesandsumbit();
         });
-        binding.date.setOnClickListener(v -> {
-            pickdate();
-        });
+
         return binding.getRoot();
     }
 
@@ -100,13 +99,12 @@ public class AddComplaintFragment extends Fragment {
         String governorate=binding.governorate.getText().toString().trim();
         String organization=binding.Organization.getText().toString().trim();
         String complaintBody=binding.complaintBody.getText().toString().trim();
-        String datetmp=binding.date.getText().toString().trim();
-        if(title.isEmpty()||address.isEmpty()||governorate.isEmpty()||organization.isEmpty()||complaintBody.isEmpty()||datetmp.isEmpty()){
+        if(title.isEmpty()||address.isEmpty()||governorate.isEmpty()||organization.isEmpty()||complaintBody.isEmpty()){
             Toast.makeText(requireContext(),"please fill all required feilds",Toast.LENGTH_LONG).show();
             return;
         }
         Complaint complaint=new Complaint(title,governorate,address,organization,complaintBody,
-                FirebaseAuth.getInstance().getCurrentUser().getUid(),date.getTimeInMillis(),filePath);
+                FirebaseAuth.getInstance().getCurrentUser().getUid(), DMY.format(Timestamp.now().toDate()),filePath);
         UploadComplaint uploadComplaint=new UploadComplaint(requireContext(), obj -> {
             if(obj==null) {
                 MainActivity mainActivity = (MainActivity) requireActivity();
@@ -155,16 +153,5 @@ public class AddComplaintFragment extends Fragment {
         }
 
     }
-    private void pickdate() {
-        DatePickerDialog datePickerDialog=new DatePickerDialog(requireContext(), android.R.style.Theme_Holo_Dialog_MinWidth, (datePicker, year, month, day) -> {
-            date.set(Calendar.YEAR,year);
-            date.set(Calendar.MONTH,month);
-            date.set(Calendar.DAY_OF_MONTH,day);
-            binding.date.setText(DMY.format(date.getTime()));
-        },date.get(Calendar.YEAR),date.get(Calendar.MONTH),date.get(Calendar.DAY_OF_MONTH)
-        );
-        datePickerDialog.setTitle("Select date");
-        datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        datePickerDialog.show();
-    }
+
 }
