@@ -13,5 +13,6 @@ public class FeedbackActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityFeedbackBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
     }
 }
