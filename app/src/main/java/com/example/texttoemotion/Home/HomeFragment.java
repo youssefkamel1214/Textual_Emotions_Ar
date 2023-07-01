@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment {
     int index=0;
     ComplaintAdapter complaintAdapter;
     FirebaseFirestore db=FirebaseFirestore.getInstance();
+    Thread runningThread;
     private SimpleDateFormat DMY=new SimpleDateFormat("dd-MM-YYYY HH:mm:ss");
 
 
@@ -99,7 +100,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void getComplaints() {
-        new Thread(() -> {
+        runningThread= new Thread(() -> {
             ArrayList<Complaint>complaints=new ArrayList<Complaint>();
             Task<QuerySnapshot>task =db.collection("complaints").whereEqualTo("userid", FirebaseAuth.getInstance().getUid()).get();
             try {
@@ -123,12 +124,16 @@ public class HomeFragment extends Fragment {
                     }
                 });
 
-            } catch (ExecutionException | InterruptedException e) {
+            } catch (ExecutionException e) {
+
                 getActivity().runOnUiThread(() -> {
                     Toast.makeText(requireContext(),e.getMessage(),Toast.LENGTH_LONG).show();
                 });
+            } catch (InterruptedException e) {
+//                Log.e(tag,e.getMessage());
             }
-        }).start();
+        });
+        runningThread.start();
     }
 
     private void showReviewDialog() {
@@ -180,6 +185,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        runningThread.interrupt();
         binding = null;
     }
 

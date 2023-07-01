@@ -5,8 +5,12 @@ import android.net.Uri;
 import android.util.Base64;
 import android.util.Log;
 
+import com.example.texttoemotion.models.User;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -17,6 +21,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidParameterSpecException;
 import java.util.Calendar;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Pattern;
 
 import javax.crypto.BadPaddingException;
@@ -79,5 +84,6 @@ public class Constants {
         String decryptString = new String(cipher.doFinal(decode), "UTF-8");
         return decryptString;
     }
+
 
 }
