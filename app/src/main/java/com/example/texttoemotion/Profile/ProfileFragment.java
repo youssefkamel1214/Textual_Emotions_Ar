@@ -55,6 +55,7 @@ public class ProfileFragment extends Fragment {
                 Log.e(tag,obj.getMessage());
             }).getCurrentUser();
             getActivity().runOnUiThread(() -> {
+                //Created new thread to handel users
                 binding.Name.setText(user.getName());
                 binding.ssn.setText(user.getSsn());
                 binding.Emailinfo.setText(user.getEmail());
