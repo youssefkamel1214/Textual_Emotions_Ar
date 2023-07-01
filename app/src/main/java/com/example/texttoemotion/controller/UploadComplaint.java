@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.texttoemotion.models.Complaint;
 import com.google.android.gms.tasks.Task;
@@ -17,22 +18,26 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
+import java.util.concurrent.ExecutionException;
 
 public class UploadComplaint extends AsyncTask<Complaint,Long,Object> {
     WeakReference<Context>contextWeakReference;
-    WeakReference<Callback<Exception>>callbackWeakReference;
+    Callback<Exception>callback;
+    Boolean hasAttachment;
     FirebaseStorage firebaseStorage=FirebaseStorage.getInstance();
     FirebaseFirestore db=FirebaseFirestore.getInstance();
     private ProgressDialog progressDialog;
-    public UploadComplaint(Context context,Callback<Exception>callback) {
+    public UploadComplaint(Context context,Callback<Exception>callback,Boolean hasAttachment) {
         this.contextWeakReference=new WeakReference<>(context);
-        this.callbackWeakReference=new WeakReference<>(callback);
+        this.callback=callback;
+        this.hasAttachment=hasAttachment;
     }
 
     @Override
     protected void onPostExecute(Object o) {
         super.onPostExecute(o);
-        Callback<Exception> callback=callbackWeakReference.get();
+        if(progressDialog!=null)
+            progressDialog.dismiss();
         if(o instanceof  Exception)
            callback.call((Exception) o );
         else
@@ -47,6 +52,7 @@ public class UploadComplaint extends AsyncTask<Complaint,Long,Object> {
             cancel(false);
             return;
         }
+
         progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Uploading file...");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -58,17 +64,26 @@ public class UploadComplaint extends AsyncTask<Complaint,Long,Object> {
 
     @Override
     protected Object doInBackground(Complaint... complaints) {
-        UploadTask uploadTask=null;
-        if(!complaints[0].getFileurl().isEmpty()) {
-            File f = new File(complaints[0].getFileurl());
-            StorageReference reference = firebaseStorage.getReference().child("complaint attachment").child(complaints[0].getTitle() + "ssn" +
-                    complaints[0].getUserid() + FilenameUtils.getExtension(f.getName()));
-            uploadTask = reference.putFile(Uri.fromFile(f));
-            uploadTask.addOnProgressListener(snapshot -> {
-                publishProgress((snapshot.getBytesTransferred() * 100) / snapshot.getTotalByteCount());
-            });
-        }
+        String id=db.collection("complaints").document().getId();
+        complaints[0].setId(id);
+        if(complaints[0].getFileurl()==null||complaints[0].getFileurl().isEmpty()) {
+             try {
+                 return uploadcollection(complaints[0]);
+             } catch (Exception e) {
+                 Log.e("uploadtask", e.getMessage());
+                 return e;
+             }
+         }
         try {
+            UploadTask uploadTask=null;
+            if(!complaints[0].getFileurl().isEmpty()) {
+                StorageReference reference = firebaseStorage.getReference().child("complaint attachment").child(complaints[0].getId() +
+                        FilenameUtils.getExtension(complaints[0].getFileurl()));
+                uploadTask = reference.putFile(Uri.parse(complaints[0].getFileurl()));
+                uploadTask.addOnProgressListener(snapshot -> {
+                    publishProgress((snapshot.getBytesTransferred() * 100) / snapshot.getTotalByteCount());
+                });
+            }
             if(uploadTask!=null ){
                 Tasks.await(uploadTask);
             }
@@ -84,7 +99,7 @@ public class UploadComplaint extends AsyncTask<Complaint,Long,Object> {
                             .getDownloadUrl());
                     complaints[0].setFileurl(uri.toString());
                 }
-                Task<DocumentReference> colref= db.collection("complaints").add(complaints[0]);
+                Task<Void> colref= db.collection("complaints").document(complaints[0].getId()).set(complaints[0]);
                 Tasks.await(colref);
                 if(colref.isSuccessful())
                     return "finished";
@@ -97,6 +112,15 @@ public class UploadComplaint extends AsyncTask<Complaint,Long,Object> {
         }catch (Exception e){
                       return  e;
         }
+    }
+
+    private Object uploadcollection(Complaint complaint) throws ExecutionException, InterruptedException {
+        Task<Void> colref= db.collection("complaints").document(complaint.getId()).set(complaint);
+        Tasks.await(colref);
+        if (colref.isSuccessful())
+            return "finished";
+        else
+            return  colref.getException();
     }
 
     @Override

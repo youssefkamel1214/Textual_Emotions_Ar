@@ -28,26 +28,42 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/reycler_view"
-        android:layout_marginHorizontal="5dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginHorizontal="5dp"
         android:layout_marginVertical="5dp"
-        app:layout_constraintBottom_toTopOf="@id/button_first"
+        app:layout_constraintBottom_toTopOf="@id/floatactionbutton"
         app:layout_constraintEnd_toStartOf="@+id/right"
         app:layout_constraintStart_toEndOf="@+id/leftscrool"
         app:layout_constraintTop_toTopOf="@+id/guideline" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_first"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/button_background"
-        android:padding="8dp"
-        android:text="@string/sumbit_feedback"
+    <!--    <androidx.appcompat.widget.AppCompatButton-->
+    <!--        android:id="@+id/button_first"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginBottom="10dp"-->
+    <!--        android:background="@drawable/button_background"-->
+    <!--        android:padding="8dp"-->
+    <!--        android:text="@string/sumbit_feedback"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+
+    <ImageButton
+        android:id="@+id/floatactionbutton"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/floatationpoint"
+        android:padding="10dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/baseline_rate_review_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.94"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -55,4 +71,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent=".025" />
+
+    <TextView
+        android:id="@+id/emptytext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="There no complaints u uploaded"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="?editTextColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

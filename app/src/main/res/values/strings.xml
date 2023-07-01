@@ -56,7 +56,7 @@
     <string name="attachments">Attachments</string>
     <string name="add_attachment">Add attachment</string>
     <string name="submit">submit</string>
-    <string name="sumbit_feedback">Sumbit feedback</string>
+    <string name="sumbit_feedback">Review out App</string>
     <string name="code">code</string>
     <string name="code_was_sent">code was sent to %s</string>
     <string name="not_yet_registered_signup_now">Not yet registered? SignUp Now</string>
@@ -71,4 +71,9 @@
     <string name="complaints_summraization">Complaints Summraization</string>
     <string name="complaint_analysis">Complaint Analysis</string>
     <string name="logo">LOGO</string>
+    <string name="allowed_charaters_in_complaint">*-/+|"'٠١٢٣٤٥٦٧٨٩ءآأؤإئابتثجحخدذرزسشصضطظعغفقكلمنهويىة ؟،.;:« »)(!@#$%^</string>
+    <string name="emailhint">example@fcis.com</string>
+    <string name="are_you_sure_want_to_logout">Are you sure want to logout ?</string>
+    <string name="write_your_feedback">write your feedback</string>
+    <string name="submit_review">Submit Review</string>
 </resources>

@@ -6,8 +6,6 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.texttoemotion.ComplaintSummrizationActivity;
-import com.example.texttoemotion.FeedbackActivity;
 import com.example.texttoemotion.R;
 import com.example.texttoemotion.databinding.ActivityAdminBinding;
 

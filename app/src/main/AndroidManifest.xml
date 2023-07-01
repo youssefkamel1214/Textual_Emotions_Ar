@@ -15,10 +15,10 @@
         android:theme="@style/Theme.TextToEmotion"
         tools:targetApi="31">
         <activity
-            android:name=".ComplaintSummrizationActivity"
+            android:name=".Admin.ComplaintSummrizationActivity"
             android:exported="false" />
         <activity
-            android:name=".FeedbackActivity"
+            android:name=".Admin.FeedbackActivity"
             android:exported="false" />
         <activity
             android:name=".Admin.AdminActivity"

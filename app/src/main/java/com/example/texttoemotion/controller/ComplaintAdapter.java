@@ -32,17 +32,21 @@ public class ComplaintAdapter extends  RecyclerView.Adapter<ComplaintAdapter.Vie
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Calendar calendar=Calendar.getInstance();
+
         Complaint complaint=complaints.get(position);
-        calendar.setTimeInMillis(complaint.getDate());
         holder.binding.title.setText(complaint.getTitle());
         holder.binding.summary.setText(complaint.getSummary());
-        holder.binding.datesumbit.setText( DMY.format(calendar.getTime()));
+        holder.binding.datesumbit.setText( complaint.getDate());
     }
 
     @Override
     public int getItemCount() {
         return complaints.size();
+    }
+
+    public void sumbitComplaints(ArrayList<Complaint> complaints) {
+        this.complaints=complaints;
+        notifyDataSetChanged();
     }
 
     public static class  ViewHolder extends RecyclerView.ViewHolder{

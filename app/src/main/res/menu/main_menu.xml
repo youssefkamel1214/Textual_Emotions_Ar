@@ -5,17 +5,17 @@
         android:icon="@drawable/baseline_home_24"
         android:title="Home" />
     <item
-        android:id="@+id/profile"
-        android:icon="@drawable/baseline_account_circle_24"
-        android:title="Profile" />
-    <item
         android:icon="@drawable/oip_1_removebg_preview"
         android:title="Add Complaint"
         android:id="@+id/addcomplaint"
        />
     <item
-        android:id="@+id/settings"
-        android:icon="@drawable/baseline_settings_24"
-        android:title="settings" />
+        android:id="@+id/profile"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="Profile" />
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/baseline_logout_24"
+        android:title="Logout" />
 
 </menu>

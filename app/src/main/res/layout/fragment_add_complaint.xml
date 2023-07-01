@@ -130,68 +130,6 @@
                     android:layout_marginHorizontal="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/city"
-                    android:textSize="@dimen/_19sdp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="6dp"></TextView>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="@string/nasr_city"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/custom_edittext"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:textSize="20dp"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:id="@+id/city"></EditText>
-
-                <View
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="8dp"
-                    android:background="@android:color/darker_gray" />
-
-                <TextView
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginHorizontal="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/date"
-                    android:textSize="@dimen/_20sdp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="6dp" />
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="@string/day_month_year"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/custom_edittext"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:textSize="20dp"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:id="@+id/date" />
-
-                <View
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="8dp"
-                    android:background="@android:color/darker_gray" />
-
-                <TextView
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginHorizontal="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
                     android:text="@string/address"
                     android:textSize="@dimen/_20sdp"
                     android:textColor="@color/black"
@@ -235,45 +173,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="12dp"
-                    android:inputType="textMultiLine"
                     android:background="@drawable/custom_edittext"
-                    android:minHeight="@dimen/_50sdp"
+                    android:minHeight="@dimen/_200sdp"
+                    android:gravity="top|right"
                     android:textSize="20dp"
+                    android:digits="@string/allowed_charaters_in_complaint"
+                    android:padding="8dp"
                     android:hint="@string/max_words_is_600"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:maxLines="10"
                     android:maxLength="3600" />
-
-                <View
-                    android:layout_marginTop="20dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginHorizontal="8dp"
-                    android:background="@android:color/darker_gray" />
-
-                <TextView
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginHorizontal="12dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/comments"
-                    android:textSize="@dimen/_20sdp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="6dp"></TextView>
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:hint="@string/optional"
-                    android:layout_marginHorizontal="6dp"
-                    android:background="@drawable/custom_edittext"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:textSize="20dp"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:id="@+id/comments"></EditText>
 
                 <View
                     android:layout_marginTop="20dp"

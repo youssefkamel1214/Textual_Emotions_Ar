@@ -6,7 +6,8 @@ import android.os.Parcelable;
 public class User  implements Parcelable {
     private String Name;
     private String id;
-    private String phone;
+    private String email;
+    private String password;
     private String ssn;
     private long date_birth;
     private String type;
@@ -14,10 +15,11 @@ public class User  implements Parcelable {
     public User() {
     }
 
-    public User(String name, String id, String phone, String ssn, long date_birth) {
+    public User(String name, String id, String email,String password, String ssn, long date_birth) {
         Name = name;
         this.id = id;
-        this.phone = phone;
+        this.email = email;
+        this.password=password;
         this.ssn = ssn;
         this.date_birth = date_birth;
         this.type="user";
@@ -26,7 +28,8 @@ public class User  implements Parcelable {
     protected User(Parcel in) {
         Name = in.readString();
         id = in.readString();
-        phone = in.readString();
+        email = in.readString();
+        password = in.readString();
         ssn = in.readString();
         date_birth = in.readLong();
         type = in.readString();
@@ -36,7 +39,8 @@ public class User  implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(Name);
         dest.writeString(id);
-        dest.writeString(phone);
+        dest.writeString(email);
+        dest.writeString(password);
         dest.writeString(ssn);
         dest.writeLong(date_birth);
         dest.writeString(type);
@@ -75,16 +79,24 @@ public class User  implements Parcelable {
         this.id = id;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
     public String getSsn() {
         return ssn;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setSsn(String ssn) {
