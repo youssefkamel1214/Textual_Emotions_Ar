@@ -160,7 +160,7 @@
 
                         <!--View to display the yellow color icon-->
                         <View
-                            android:layout_width="@dimen/_12sdp"
+                            android:layout_width="16dp"
                             android:layout_height="match_parent"
                             android:background="@color/colorAccent" />
 
@@ -295,7 +295,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="0"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/color_one"
+                        android:textColor="@color/bluefateh"
                         android:textSize="18sp"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -335,7 +335,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="0"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/color_one"
+                        android:textColor="@color/bluefateh"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -374,7 +374,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="0"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/color_one"
+                        android:textColor="@color/bluefateh"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -413,7 +413,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="0"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/color_one"
+                        android:textColor="@color/bluefateh"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -453,7 +453,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="0"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/color_one"
+                        android:textColor="@color/bluefateh"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -487,13 +487,14 @@
                     <!-- For now default set to 0-->
                     <TextView
                         android:id="@+id/sympathy"
-                        android:layout_width="fill_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:layout_marginRight="0dp"
                         android:fontFamily="sans-serif-light"
                         android:text="0"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/color_one"
+                        android:textColor="@color/bluefateh"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
@@ -533,7 +534,7 @@
                         android:fontFamily="sans-serif-light"
                         android:text="0"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/color_one"
+                        android:textColor="@color/bluefateh"
                         android:textSize="18sp"
                         android:textStyle="bold" />
 
