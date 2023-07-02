@@ -48,17 +48,25 @@ public class ProfileFragment extends Fragment {
     ) {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
-        user= UserAccountdata.getInstance(FirebaseAuth.getInstance(),db,obj -> {
-            Toast.makeText(requireContext(),obj.getMessage(),Toast.LENGTH_LONG).show();
-            Log.e(tag,obj.getMessage());
-        }).getCurrentUser();
-        binding.Name.setText(user.getName());
-        binding.ssn.setText(user.getSsn());
-        binding.Emailinfo.setText(user.getEmail());
-        binding.PwInfo.setText(user.getPassword());
-        Calendar cal=Calendar.getInstance();
-        cal.setTimeInMillis(user.getDate_birth());
-        binding.DateOfBirthInfo.setText(DMY.format(cal.getTime()));
+        new Thread(() -> {
+
+            user= UserAccountdata.getInstance(FirebaseAuth.getInstance(),db,obj -> {
+                Toast.makeText(requireContext(),obj.getMessage(),Toast.LENGTH_LONG).show();
+                Log.e(tag,obj.getMessage());
+            }).getCurrentUser();
+            getActivity().runOnUiThread(() -> {
+                //Created new thread to handel users
+                binding.Name.setText(user.getName());
+                binding.ssn.setText(user.getSsn());
+                binding.Emailinfo.setText(user.getEmail());
+                binding.PwInfo.setText(user.getPassword());
+                Calendar cal=Calendar.getInstance();
+                cal.setTimeInMillis(user.getDate_birth());
+                binding.DateOfBirthInfo.setText(DMY.format(cal.getTime()));
+            });
+
+        }).start();
+
         binding.editEmail.setOnClickListener(v -> {
             binding.Emailinfo.requestFocus();
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
