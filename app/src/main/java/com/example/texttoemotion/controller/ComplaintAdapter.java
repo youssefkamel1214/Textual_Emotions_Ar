@@ -1,6 +1,5 @@
 package com.example.texttoemotion.controller;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.texttoemotion.databinding.ComplaintItemBinding;
 import com.example.texttoemotion.models.Complaint;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ComplaintAdapter extends  RecyclerView.Adapter<ComplaintAdapter.ViewHolder>{
     ArrayList<Complaint>complaints;
-    SimpleDateFormat DMY=new SimpleDateFormat("dd-MMM-YYYY");
 
-    public ComplaintAdapter(ArrayList<Complaint> complaints) {
+    Callback<Complaint>callback;
+
+    int height=0;
+    public ComplaintAdapter(ArrayList<Complaint> complaints,Callback<Complaint>callback,int height) {
         this.complaints = complaints;
+        this.callback=callback;
+        this.height=height;
     }
 
     @NonNull
@@ -37,6 +38,16 @@ public class ComplaintAdapter extends  RecyclerView.Adapter<ComplaintAdapter.Vie
         holder.binding.title.setText(complaint.getTitle());
         holder.binding.summary.setText(complaint.getSummary());
         holder.binding.datesumbit.setText( complaint.getDate());
+
+        if(callback!=null){
+            holder.binding.governorate.setText(complaint.getGovernorate());
+            holder.binding.governoratelabel.setVisibility(View.VISIBLE);
+            holder.binding.governorate.setVisibility(View.VISIBLE);
+            holder.binding.cardViewGraph.setOnClickListener(v -> {
+                callback.call(complaint);
+            });
+            holder.binding.cardViewGraph.getLayoutParams().height=height;
+        }
     }
 
     @Override

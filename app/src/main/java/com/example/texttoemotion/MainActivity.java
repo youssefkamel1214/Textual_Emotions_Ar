@@ -32,7 +32,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class MainActivity extends AppCompatActivity{
 
     ActivityMainBinding binding;
-    Emotion_server service;
     private DrawerLayout drawerLayout;
     private String tag="MainActivity";
     private UserAccountdata insUserAccountdata;

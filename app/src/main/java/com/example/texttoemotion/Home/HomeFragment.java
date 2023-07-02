@@ -65,7 +65,7 @@ public class HomeFragment extends Fragment {
 //        complaints[7] = new Complaint("سياسات غير عادلة", "السياسات غير عادلة وظالمة. تفضل بعض المجموعات على أخرى. تحتاج إلى أن تكون أكثر شمولية وإنصافًا.");
 //        complaints[8] = new Complaint("زعماء غير أكفاء", "الزعماء غير أكفاء ولا يفهمون شيئًا. لا يمتلكون رؤية أو استراتيجية. تحتاج إلى استبدالهم.");
 //        complaints[9] = new Complaint("انتهاك الحقوق", "الحكومة تنتهك حقوقي وحرياتي. تراقبني وتخبر علَّىَّ . تحتاج إلى احترام خ") ;
-        complaintAdapter = new ComplaintAdapter(new ArrayList<Complaint>());
+        complaintAdapter = new ComplaintAdapter(new ArrayList<Complaint>(),null,-1);
         binding.reyclerView.setAdapter(complaintAdapter);
         smoothScroller = new LinearSmoothScroller(getContext()) {
             @Override

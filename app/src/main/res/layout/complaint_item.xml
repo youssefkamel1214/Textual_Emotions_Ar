@@ -8,6 +8,7 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewGraph"
         android:layout_margin="@dimen/_10sdp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -44,16 +45,41 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/governoratelabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Governorate:"
+                android:textSize="25sp"
+
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <TextView
+                android:id="@+id/governorate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="not in the mod"
+                android:textSize="25sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.18"
+                app:layout_constraintStart_toEndOf="@+id/governoratelabel"
+                app:layout_constraintTop_toTopOf="@+id/governoratelabel" />
+
+            <TextView
                 android:id="@+id/datesumbit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:text="2023/3/13"
                 android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title" />
+                app:layout_constraintTop_toBottomOf="@+id/governoratelabel" />
 
             <TextView
                 android:id="@+id/labelsummary"

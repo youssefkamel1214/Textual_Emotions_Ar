@@ -24,18 +24,19 @@ public class UserAccountdata {
         this.currentUser = currentUser;
     }
     public static UserAccountdata getInstance(FirebaseAuth firebaseAuth, FirebaseFirestore db,Callback<Exception>callback){
-        Task<DocumentSnapshot> userdoc=db.collection("users").document(firebaseAuth.getUid()).get();
-        try {
-            Tasks.await(userdoc);
-            if(userdoc.isSuccessful()){
-               User currentUser=userdoc.getResult().toObject(User.class);
-               instance=new UserAccountdata(currentUser);
+        if(instance==null) {
+            Task<DocumentSnapshot> userdoc = db.collection("users").document(firebaseAuth.getUid()).get();
+            try {
+                Tasks.await(userdoc);
+                if (userdoc.isSuccessful()) {
+                    User currentUser = userdoc.getResult().toObject(User.class);
+                    instance = new UserAccountdata(currentUser);
+                } else {
+                    throw new Exception(userdoc.getException().getMessage());
+                }
+            } catch (Exception e) {
+                callback.call(e);
             }
-            else{
-                throw  new Exception(userdoc.getException().getMessage());
-            }
-        } catch (Exception e) {
-            callback.call(e);
         }
         return  instance;
     }

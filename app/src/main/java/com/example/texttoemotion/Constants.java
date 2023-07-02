@@ -32,6 +32,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Constants {
+    public static String baseurl="https://na2seenwahedd-emotiondetectionorganized.hf.space/";
+
     public static  byte[] getBytes(Uri uri, Context c) throws IOException {
         InputStream inputStream =   c.getContentResolver().openInputStream(uri);
         ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();

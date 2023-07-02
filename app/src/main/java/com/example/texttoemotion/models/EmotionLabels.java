@@ -6,51 +6,79 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmotionLabels {
+    private int anger;
+    private int sadness;
+    private int joy;
+    private int surprise;
+    private int love;
+    private int sympathy;
+    private int fear;
+    private int count;
 
-    public class Emotions{
-       private String label;
-       private Float confidence;
-
-        public String getLabel() {
-            return label;
-        }
-
-        public void setLabel(String label) {
-            this.label = label;
-        }
-
-        public Float getConfidence() {
-            return confidence;
-        }
-
-        public void setConfidence(Float confidence) {
-            this.confidence = confidence;
-        }
+    public EmotionLabels() {
     }
 
-    public EmotionLabels(String mainlabel, List<Emotions> emotions) {
-        this.mainlabel = mainlabel;
-        this.emotions = emotions;
+    public int getAnger() {
+        return anger;
     }
 
-    @SerializedName("label")
-    private String mainlabel;
-    @SerializedName("confidences")
-    private List<Emotions> emotions;
-
-    public String getMainlabel() {
-        return mainlabel;
+    public void setAnger(int anger) {
+        this.anger = anger;
     }
 
-    public void setMainlabel(String mainlabel) {
-        this.mainlabel = mainlabel;
+    public int getSadness() {
+        return sadness;
     }
 
-    public List<Emotions> getEmotions() {
-        return emotions;
+    public void setSadness(int sadness) {
+        this.sadness = sadness;
     }
 
-    public void setEmotions(ArrayList<Emotions> emotions) {
-        this.emotions = emotions;
+    public int getJoy() {
+        return joy;
+    }
+
+    public void setJoy(int joy) {
+        this.joy = joy;
+    }
+
+    public int getSurprise() {
+        return surprise;
+    }
+
+    public void setSurprise(int surprise) {
+        this.surprise = surprise;
+    }
+
+    public int getLove() {
+        return love;
+    }
+
+    public void setLove(int love) {
+        this.love = love;
+    }
+
+    public int getSympathy() {
+        return sympathy;
+    }
+
+    public void setSympathy(int sympathy) {
+        this.sympathy = sympathy;
+    }
+
+    public int getFear() {
+        return fear;
+    }
+
+    public void setFear(int fear) {
+        this.fear = fear;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 }
