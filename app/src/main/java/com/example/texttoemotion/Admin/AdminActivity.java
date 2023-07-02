@@ -26,5 +26,9 @@ public class AdminActivity extends AppCompatActivity {
             Intent intent=new Intent(this, ComplaintSummrizationActivity.class);
             startActivity(intent);
         });
+        binding.Analysis.setOnClickListener(v -> {
+            Intent intent=new Intent(this, ComplaintAnalysisActivity.class);
+            startActivity(intent);
+        });
     }
 }
