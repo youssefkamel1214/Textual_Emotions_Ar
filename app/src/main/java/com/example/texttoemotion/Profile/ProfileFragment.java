@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.texttoemotion.Constants;
 import com.example.texttoemotion.MainActivity;
+import com.example.texttoemotion.controller.ApiController;
+import com.example.texttoemotion.controller.Emotion_server;
 import com.example.texttoemotion.controller.UserAccountdata;
 import com.example.texttoemotion.databinding.FragmentProfileBinding;
 import com.example.texttoemotion.models.User;
@@ -27,10 +29,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
     private FirebaseFirestore db=FirebaseFirestore.getInstance();
@@ -38,6 +49,7 @@ public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private User user;
     private String tag="ProfileFragment";
+    Emotion_server emotion_server;
     private SimpleDateFormat DMY=new SimpleDateFormat("MMM-dd-YYYY");
     Boolean emailChange=false;
     Boolean passwordChange=false;
@@ -48,9 +60,10 @@ public class ProfileFragment extends Fragment {
     ) {
 
         binding = FragmentProfileBinding.inflate(inflater, container, false);
+        emotion_server= ApiController.getInstance().server;
         new Thread(() -> {
 
-            user= UserAccountdata.getInstance(FirebaseAuth.getInstance(),db,obj -> {
+            user= UserAccountdata.getInstance(firebaseAuth,db,obj -> {
                 Toast.makeText(requireContext(),obj.getMessage(),Toast.LENGTH_LONG).show();
                 Log.e(tag,obj.getMessage());
             }).getCurrentUser();
@@ -95,49 +108,79 @@ public class ProfileFragment extends Fragment {
         AuthCredential credential = EmailAuthProvider.getCredential(user.getEmail(), user.getPassword());
         user.setEmail(binding.Emailinfo.getText().toString().trim());
         user.setPassword(binding.PwInfo.getText().toString().trim());
-        FirebaseUser Fuser= firebaseAuth.getCurrentUser();
-        new Thread(() -> {
-           Task<Void>treauthenticate= Fuser.reauthenticate(credential);
-            try {
-                Tasks.await(  Fuser.reauthenticate(credential));
-                if(!treauthenticate.isSuccessful()){
-                        onFaulire(treauthenticate.getException());
-                }
-                if(emailChange){
-                    treauthenticate=   Fuser.updateEmail(user.getEmail());
-                    Tasks.await(treauthenticate);
-                    if(!treauthenticate.isSuccessful()){
-                            onFaulire(treauthenticate.getException());
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("Uid", user.getId());
+            jsonObject.put("email", user.getEmail());
+            jsonObject.put("password", user.getPassword());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(MediaType.parse("application/json"), jsonObject.toString());
+        emotion_server.updateUser(body).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.isSuccessful()) {
+                    String result = response.body();
+                    if(result.contains("Sucessfully")&&result.contains(user.getId())){
+                        Toast.makeText(requireActivity(),"user data updated",Toast.LENGTH_LONG).show();
+                        MainActivity mainActivity = (MainActivity) requireActivity();
+                        mainActivity.change_to_home();
                     }
+                    Log.d(tag, "Result: " + result);
+                } else {
+                    Log.e(tag, "Error: " + response.errorBody());
                 }
-                if(passwordChange) {
-                    treauthenticate = Fuser.updatePassword(user.getPassword());
-                    Tasks.await(treauthenticate);
-                    if (!treauthenticate.isSuccessful()) {
-                        onFaulire(treauthenticate.getException());
-                    }
-                }
-                treauthenticate= db.collection("users").document(firebaseAuth.getUid()).set(user);
-                Tasks.await(treauthenticate);
-                if(!treauthenticate.isSuccessful()){
-                    onFaulire(treauthenticate.getException());
-                }
-                getActivity().runOnUiThread(() -> {
-                    MainActivity mainActivity = (MainActivity) requireActivity();
-                    mainActivity.change_to_home();
-                });
-            } catch (ExecutionException e) {
-                Log.e(tag,e.getMessage());
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
             }
-        }).start();
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                  Toast.makeText(requireContext(),t.getMessage(),Toast.LENGTH_LONG).show();
+                  Log.e(tag,t.getMessage());
+            }
+        });
 
 
 
-
-
+//        FirebaseUser Fuser= firebaseAuth.getCurrentUser();
+//        new Thread(() -> {
+//           Task<Void>treauthenticate= Fuser.reauthenticate(credential);
+//            try {
+//                Tasks.await(  Fuser.reauthenticate(credential));
+//                if(!treauthenticate.isSuccessful()){
+//                        onFaulire(treauthenticate.getException());
+//                }
+//                if(emailChange){
+//                    treauthenticate=   Fuser.updateEmail(user.getEmail());
+//                    Tasks.await(treauthenticate);
+//                    if(!treauthenticate.isSuccessful()){
+//                            onFaulire(treauthenticate.getException());
+//                    }
+//                }
+//                if(passwordChange) {
+//                    treauthenticate = Fuser.updatePassword(user.getPassword());
+//                    Tasks.await(treauthenticate);
+//                    if (!treauthenticate.isSuccessful()) {
+//                        onFaulire(treauthenticate.getException());
+//                    }
+//                }
+//                treauthenticate= db.collection("users").document(firebaseAuth.getUid()).set(user);
+//                Tasks.await(treauthenticate);
+//                if(!treauthenticate.isSuccessful()){
+//                    onFaulire(treauthenticate.getException());
+//                }
+//                getActivity().runOnUiThread(() -> {
+//                    MainActivity mainActivity = (MainActivity) requireActivity();
+//                    mainActivity.change_to_home();
+//                });
+//            } catch (ExecutionException e) {
+//                Log.e(tag,e.getMessage());
+//                throw new RuntimeException(e);
+//            } catch (InterruptedException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }).start();
     }
 
     private void onFaulire(Exception exception) {

@@ -13,4 +13,6 @@ import retrofit2.http.POST;
 public interface Emotion_server {
     @GET("emotionCount")
     Call<EmotionLabels> getResponse();
+    @POST("updateuser")
+    Call<String>updateUser(@Body RequestBody body);
 }
