@@ -99,7 +99,7 @@
                 android:layout_marginTop="20dp"
 
                 android:text="الطرق سيئة وغير آمنة. لديها حفر وشقوق. تحتاج إلى إصلاح"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"

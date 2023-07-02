@@ -57,16 +57,18 @@ tools:context=".authintication.LoginActivity">
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/cardview_dark_background"
                 android:layout_marginTop="20dp"/>
+
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/loginButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/loginButton"
-                android:text="@string/login"
-                android:textStyle="bold"
-                android:textSize="18sp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/button_background"
-                app:cornerRadius = "100dp"/>
+                android:text="@string/login"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="100dp" />
+
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyle"

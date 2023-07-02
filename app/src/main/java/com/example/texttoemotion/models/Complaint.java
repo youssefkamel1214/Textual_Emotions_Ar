@@ -2,9 +2,10 @@ package com.example.texttoemotion.models;
 
 import android.icu.util.Calendar;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Complaint {
+public class Complaint implements Serializable {
     String id;
     String title;
     String governorate;
@@ -16,10 +17,20 @@ public class Complaint {
     String summary;
     String Fileurl;
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    boolean status;
+
     public Complaint() {
     }
 
-    public Complaint(String title, String governorate, String address, String organization, String complaintbody, String userid, String date, String fileurl) {
+    public Complaint(String title, String governorate, String address, String organization, String complaintbody, String userid, String date, String fileurl,boolean status) {
         this.title = title;
         this.governorate = governorate;
         this.address = address;
@@ -28,6 +39,7 @@ public class Complaint {
         this.userid = userid;
         this.date = date;
         Fileurl = fileurl;
+        this.status=status;
     }
 
     public Complaint(String title, String summary) {

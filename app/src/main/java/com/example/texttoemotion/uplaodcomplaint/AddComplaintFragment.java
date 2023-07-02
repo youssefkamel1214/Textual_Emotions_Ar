@@ -104,7 +104,7 @@ public class AddComplaintFragment extends Fragment {
             return;
         }
         Complaint complaint=new Complaint(title,governorate,address,organization,complaintBody,
-                FirebaseAuth.getInstance().getCurrentUser().getUid(), DMY.format(Timestamp.now().toDate()),filePath);
+                FirebaseAuth.getInstance().getCurrentUser().getUid(), DMY.format(Timestamp.now().toDate()),filePath,false);
         UploadComplaint uploadComplaint=new UploadComplaint(requireContext(), obj -> {
             if(obj==null) {
                 MainActivity mainActivity = (MainActivity) requireActivity();

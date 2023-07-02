@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.texttoemotion.R;
 import com.example.texttoemotion.databinding.ComplaintItemBinding;
 import com.example.texttoemotion.models.Complaint;
 
@@ -38,6 +39,15 @@ public class ComplaintAdapter extends  RecyclerView.Adapter<ComplaintAdapter.Vie
         holder.binding.title.setText(complaint.getTitle());
         holder.binding.summary.setText(complaint.getSummary());
         holder.binding.datesumbit.setText( complaint.getDate());
+        if (!complaint.isStatus()){
+            holder.binding.status.setText("On Hold");
+        }
+        else{
+
+            holder.binding.status.setText("Reviewed");
+            holder.binding.status.setTextColor(holder.binding.status.getContext().getResources().getColor(R.color.teal_700));
+        }
+
 
         if(callback!=null){
             holder.binding.governorate.setText(complaint.getGovernorate());
