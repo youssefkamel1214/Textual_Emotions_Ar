@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.texttoemotion.controller.ComplaintAdapter;
+import com.example.texttoemotion.controller.ComplaintListener;
 import com.example.texttoemotion.databinding.ActivityComplaintSummrizationBinding;
 import com.example.texttoemotion.models.Complaint;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 public class ComplaintSummrizationActivity extends AppCompatActivity {
     ActivityComplaintSummrizationBinding binding;
     FirebaseFirestore db=FirebaseFirestore.getInstance();
+    ComplaintListener complaintListener;
     String tag="ComplaintSummrizationActivity";
     int height=0;
     @Override
@@ -30,21 +32,42 @@ public class ComplaintSummrizationActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = (int)(displayMetrics.heightPixels*0.5);
         binding.recylerview.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
-        db.collection("complaints").get().addOnCompleteListener(task -> {
-                     if(task.isSuccessful()){
-                         ArrayList<Complaint> complaints=new ArrayList<Complaint>();
-                         for (int i=0;i<task.getResult().getDocuments().size();i++){
-                             DocumentSnapshot documentSnapshot=task.getResult().getDocuments().get(i);
-                             complaints.add(documentSnapshot.toObject(Complaint.class));
-                         }
-                         ComplaintAdapter complaintAdapter=new ComplaintAdapter(complaints,obj -> moveToShowFullComplaint(obj),height);
-                         binding.recylerview.setAdapter(complaintAdapter);
-                         binding.progressBar4.setVisibility(View.GONE);
-                     }
-                     else {
-                         Log.e(tag,task.getException().getMessage());
-                     }
+        complaintListener=ComplaintListener.getInstance(db,loading -> {
+            runOnUiThread(() -> {
+                if(loading)binding.progressBar4.setVisibility(View.VISIBLE);
+                else binding.progressBar4.setVisibility(View.GONE);
+            });
+        },complaints -> {
+            runOnUiThread(()->{
+                ComplaintAdapter complaintAdapter=new ComplaintAdapter(complaints,obj -> moveToShowFullComplaint(obj),height);
+                binding.recylerview.setAdapter(complaintAdapter);
+            });
         });
+        if(complaintListener.getComplaints()!=null){
+            ComplaintAdapter complaintAdapter=new ComplaintAdapter(complaintListener.getComplaints(),obj -> moveToShowFullComplaint(obj),height);
+            binding.recylerview.setAdapter(complaintAdapter);
+        }
+//        db.collection("complaints").get().addOnCompleteListener(task -> {
+//                     if(task.isSuccessful()){
+//                         ArrayList<Complaint> complaints=new ArrayList<Complaint>();
+//                         for (int i=0;i<task.getResult().getDocuments().size();i++){
+//                             DocumentSnapshot documentSnapshot=task.getResult().getDocuments().get(i);
+//                             complaints.add(documentSnapshot.toObject(Complaint.class));
+//                         }
+//                         ComplaintAdapter complaintAdapter=new ComplaintAdapter(complaints,obj -> moveToShowFullComplaint(obj),height);
+//                         binding.recylerview.setAdapter(complaintAdapter);
+//                         binding.progressBar4.setVisibility(View.GONE);
+//                     }
+//                     else {
+//                         Log.e(tag,task.getException().getMessage());
+//                     }
+//        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        complaintListener.clearlithners();
     }
 
     private void moveToShowFullComplaint(Complaint complaint) {

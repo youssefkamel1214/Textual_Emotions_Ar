@@ -141,55 +141,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
-
-//        FirebaseUser Fuser= firebaseAuth.getCurrentUser();
-//        new Thread(() -> {
-//           Task<Void>treauthenticate= Fuser.reauthenticate(credential);
-//            try {
-//                Tasks.await(  Fuser.reauthenticate(credential));
-//                if(!treauthenticate.isSuccessful()){
-//                        onFaulire(treauthenticate.getException());
-//                }
-//                if(emailChange){
-//                    treauthenticate=   Fuser.updateEmail(user.getEmail());
-//                    Tasks.await(treauthenticate);
-//                    if(!treauthenticate.isSuccessful()){
-//                            onFaulire(treauthenticate.getException());
-//                    }
-//                }
-//                if(passwordChange) {
-//                    treauthenticate = Fuser.updatePassword(user.getPassword());
-//                    Tasks.await(treauthenticate);
-//                    if (!treauthenticate.isSuccessful()) {
-//                        onFaulire(treauthenticate.getException());
-//                    }
-//                }
-//                treauthenticate= db.collection("users").document(firebaseAuth.getUid()).set(user);
-//                Tasks.await(treauthenticate);
-//                if(!treauthenticate.isSuccessful()){
-//                    onFaulire(treauthenticate.getException());
-//                }
-//                getActivity().runOnUiThread(() -> {
-//                    MainActivity mainActivity = (MainActivity) requireActivity();
-//                    mainActivity.change_to_home();
-//                });
-//            } catch (ExecutionException e) {
-//                Log.e(tag,e.getMessage());
-//                throw new RuntimeException(e);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }).start();
-    }
-
-    private void onFaulire(Exception exception) {
-        getActivity().runOnUiThread(() -> {
-            Toast.makeText(requireContext(),exception.getMessage(),Toast.LENGTH_LONG).show();
-            binding.progressBar2.setVisibility(View.GONE);
-            binding.appCompatButton2.setVisibility(View.VISIBLE);
-        });
-
     }
 
     private void iniliazecheckonchanges() {
