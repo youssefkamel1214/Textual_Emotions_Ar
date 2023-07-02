@@ -39,9 +39,6 @@
             android:name=".Admin.AdminActivity"
             android:exported="true" />
         <activity
-            android:name=".authintication.OtpActivity"
-            android:exported="false" />
-        <activity
             android:name=".authintication.SignUpActivity"
             android:exported="false" />
         <activity
