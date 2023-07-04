@@ -32,7 +32,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        check_login();
         getWindow().setStatusBarColor(ContextCompat.getColor(this,android.R.color.transparent));
         getWindow().setBackgroundDrawable(getDrawable(R.drawable.actionbar));
         binding.signupText.setOnClickListener(v -> {
@@ -54,14 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void check_login() {
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null)
-        {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-        }
-    }
+
 
     private void confirmdata(String email, String password) {
       auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(task -> {

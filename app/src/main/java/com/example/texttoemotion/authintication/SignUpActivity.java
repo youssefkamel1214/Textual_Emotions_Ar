@@ -43,6 +43,9 @@ public class SignUpActivity extends AppCompatActivity {
         binding.dob.setOnClickListener(v -> {
             pickdate();
         });
+        binding.signupText.setOnClickListener(v -> {
+            finish();
+        });
         binding.signupButton.setOnClickListener(view -> {
             binding.signupButton.setVisibility(View.GONE);
             binding.progressBar.setVisibility(View.VISIBLE);
@@ -94,6 +97,7 @@ public class SignUpActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.putExtra("user",user);
         startActivity(intent);
+        finish();
     }
     private void pickdate() {
         DatePickerDialog datePickerDialog=new DatePickerDialog(this, android.R.style.Theme_Holo_Dialog_MinWidth, (datePicker, year, month, day) -> {

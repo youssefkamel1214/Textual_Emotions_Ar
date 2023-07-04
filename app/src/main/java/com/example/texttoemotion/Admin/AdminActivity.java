@@ -1,12 +1,16 @@
 package com.example.texttoemotion.Admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.texttoemotion.R;
+import com.example.texttoemotion.authintication.LoginActivity;
 import com.example.texttoemotion.databinding.ActivityAdminBinding;
 
 public class AdminActivity extends AppCompatActivity {
@@ -30,5 +34,21 @@ public class AdminActivity extends AppCompatActivity {
             Intent intent=new Intent(this, ComplaintAnalysisActivity.class);
             startActivity(intent);
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.logout){
+            Intent intent=new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.signout, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

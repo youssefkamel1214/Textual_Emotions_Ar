@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(binding.getRoot());
         getWindow().setStatusBarColor(ContextCompat.getColor(this,android.R.color.transparent));
         getWindow().setBackgroundDrawable(getDrawable(R.drawable.actionbar));
+        getSupportActionBar().hide();
         new Thread(() -> {
             insUserAccountdata=UserAccountdata.getInstance(FirebaseAuth.getInstance(), FirebaseFirestore.getInstance(), obj -> {
                 runOnUiThread(() -> {
