@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import com.example.texttoemotion.R;
 import com.example.texttoemotion.authintication.LoginActivity;
 import com.example.texttoemotion.databinding.ActivityAdminBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminActivity extends AppCompatActivity {
     ActivityAdminBinding binding;
@@ -40,6 +41,7 @@ public class AdminActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId()==R.id.logout){
             Intent intent=new Intent(this, LoginActivity.class);
+            FirebaseAuth.getInstance().signOut();
             startActivity(intent);
             finish();
         }
