@@ -69,6 +69,7 @@
             <!--Ui component for our bar chart-->
             <org.eazegraph.lib.charts.BarChart
                 android:id="@+id/idBarChart"
+                android:layout_margin="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_350sdp"
                 android:textSize="6sp"
